@@ -1,0 +1,17 @@
+#!/bin/bash
+#Ruby builder
+cd $3
+rm -r *
+rm -r .*
+cd ..
+git clone $4 current
+chown -R deploy:deploy current
+cd current
+chown -R deploy:deploy *
+bundle update
+rake assets:clean RAILS_ENV=production
+rake tmp:clear RAILS_ENV=production
+rake assets:precompile RAILS_ENV=production
+chown -R deploy:deploy tmp
+stop unicorn_$2
+start unicorn_$2
