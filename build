@@ -1,6 +1,23 @@
 #!/bin/bash
 #Ruby builder
 #megam_rails_builder/build tomcat project=aryabhata local_repo=/var/www/projects/aryabhata/current remote_repo=https://github.com/thomasalrin/aryabhata.git
+
+for i in "$@"
+do
+case $i in
+    project=*)
+    project="${i#*=}"
+
+    ;;
+    local_repo=*)
+    local_repo="${i#*=}"
+    ;;
+    remote_repo=*)
+    remote_repo="${i#*=}"
+    ;;
+esac
+done
+
 cd $local_repo
 rm -r *
 rm -r .*
