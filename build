@@ -1,10 +1,11 @@
 #!/bin/bash
 #Ruby builder
-cd $3
+#megam_rails_builder/build tomcat project=aryabhata local_repo=/var/www/projects/aryabhata/current remote_repo=https://github.com/thomasalrin/aryabhata.git
+cd $local_repo
 rm -r *
 rm -r .*
 cd ..
-git clone $4 current
+git clone $remote_repo current
 chown -R deploy:deploy current
 cd current
 chown -R deploy:deploy *
@@ -13,5 +14,5 @@ rake assets:clean RAILS_ENV=production
 rake tmp:clear RAILS_ENV=production
 rake assets:precompile RAILS_ENV=production
 chown -R deploy:deploy tmp
-stop unicorn_$2
-start unicorn_$2
+stop unicorn_$project
+start unicorn_$project
